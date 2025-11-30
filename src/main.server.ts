@@ -1,19 +1,9 @@
 import 'zone.js/node';
-import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, BootstrapContext } from '@angular/platform-browser';
 import { App } from './app/app';
-import { config as originalConfig } from './app/app.config.server';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { importProvidersFrom } from '@angular/core';
+import { config } from './app/app.config.server';
 
-const config = {
-  ...originalConfig,
-  providers: [
-    ...(originalConfig.providers || []),
-    importProvidersFrom(NoopAnimationsModule),
-  ]
-};
-
-const bootstrap = (context: BootstrapContext) =>
-    bootstrapApplication(App, config, context);
-
-export default bootstrap;
+// ✔ Versión sin prerender y con tipado correcto
+export default function (context: BootstrapContext) {
+  return bootstrapApplication(App, config, context);
+}
