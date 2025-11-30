@@ -1,0 +1,120 @@
+<div class="dashboard-container">
+  
+  <header class="dashboard-header">
+    <div>
+      <h1>Tablero de Rentabilidad</h1>
+      <p class="subtitle">Análisis global de la cartera de créditos hipotecarios</p>
+    </div>
+  </header>
+
+  <div class="kpi-grid">
+    <div class="kpi-card blue">
+      <div class="kpi-icon">📋</div>
+      <div class="kpi-content">
+        <h3>Total Créditos</h3>
+        <p class="kpi-value">{{ kpiTotalCreditos }}</p>
+      </div>
+    </div>
+
+    <div class="kpi-card green">
+      <div class="kpi-icon">📈</div>
+      <div class="kpi-content">
+        <h3>Cartera Rentable</h3>
+        <p class="kpi-value">{{ kpiPorcentajeRentable | number:'1.1-1' }}%</p>
+      </div>
+    </div>
+
+    <div class="kpi-card purple">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-content">
+        <h3>Margen Promedio (Spread)</h3>
+        <p class="kpi-value">{{ kpiMargenPromedio | number:'1.2-2' }}%</p>
+        <small>Diferencia TIR vs COK</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Estado de la Cartera</h3>
+      </div>
+      <div class="canvas-container">
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [type]="doughnutChartType"
+          [options]="doughnutChartOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Top 5 Clientes Más Rentables</h3>
+      </div>
+      <div class="canvas-container">
+        <canvas baseChart
+          [data]="barChartData"
+          [type]="barChartType"
+          [options]="barChartOptions">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <div class="table-header">
+      <h3>Detalle por Cliente</h3>
+    </div>
+    
+    <table mat-table [dataSource]="analisis">
+
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef> Cliente </th>
+        <td mat-cell *matCellDef="let element" class="fw-bold"> {{element.nombre_cliente}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tir">
+        <th mat-header-cell *matHeaderCellDef> TIR (%) </th>
+        <td mat-cell *matCellDef="let element"> {{element.tir | percent:'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cok">
+        <th mat-header-cell *matHeaderCellDef> COK (%) </th>
+        <td mat-cell *matCellDef="let element"> {{element.cok | percent:'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="margen">
+        <th mat-header-cell *matHeaderCellDef> Margen </th>
+        <td mat-cell *matCellDef="let element" 
+            [class.text-success]="element.margen_rentabilidad > 0"
+            [class.text-danger]="element.margen_rentabilidad < 0">
+            {{element.margen_rentabilidad | percent:'1.2-2'}} 
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element">
+          <span class="status-badge"
+            [class.status-rentable]="element.estado_credito === 'Rentable'"
+            [class.status-neutro]="element.estado_credito === 'Neutro'"
+            [class.status-norentable]="element.estado_credito === 'No rentable'">
+            {{element.estado_credito}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="van">
+        <th mat-header-cell *matHeaderCellDef> VAN (S/.) </th>
+        <td mat-cell *matCellDef="let element"> {{element.van | number:'1.2-2'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+</div>

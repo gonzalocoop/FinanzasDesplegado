@@ -1,0 +1,49 @@
+<div class="container">
+    <!-- Título Principal (Reemplaza header-section) -->
+    <h1>Reporte de Estructura de Precios</h1>
+
+    <div class="form-group">
+    <label for="idusuario">ID del usuario:</label>
+    
+    <input 
+      type="number" 
+      id="idusuario" 
+      [(ngModel)]="id_usuario" 
+      (input)="limpiarBusqueda()"
+      class="form-control" 
+      placeholder="Ingrese ID del usuario">
+  </div>
+
+    <!-- Botón para buscar (Estilo btn-primary mt-3) -->
+    <button class="btn btn-primary mt-3" (click)="cargarReporte()">
+Generar Gráfico</button>
+
+    <!-- Contenedor del Gráfico (Estilo Card simplificado, visible solo si hay datos > 0) -->
+    <div class="chart-report-container mt-4" *ngIf="doughnutChartData.datasets[0].data[0] > 0">
+        
+        <div class="chart-header">
+            <h3>Distribución Monetaria</h3>
+            <!-- Muestra la moneda si los datos existen -->
+            <span class="currency-badge">{{ datosReporte.length > 0 ? ('Moneda: ' + datosReporte[0].nombre_moneda) : 'Moneda: N/A' }}</span>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas baseChart
+            [data]="doughnutChartData"
+            [type]="doughnutChartType"
+            [options]="doughnutChartOptions">
+            </canvas>
+        </div>
+    </div>
+
+    <!-- Mensaje de Estado Vacío (Similar al <p> de la tabla, con bandera de búsqueda) -->
+    <p *ngIf="doughnutChartData.datasets[0].data[0] === 0 && haRealizadoBusqueda">
+        No se encontraron datos de estructura de precios para el usuario {{ id_usuario }}.
+    </p>
+
+    <!-- Mensaje Inicial (Visible solo si NO se ha buscado aún) -->
+    <p *ngIf="!haRealizadoBusqueda">
+        Ingrese un ID de usuario para generar el reporte de estructura de precios.
+    </p>
+
+</div>

@@ -1,0 +1,42 @@
+<div class="page-container">
+  <form class="form-box" [formGroup]="form" (submit)="aceptar()">
+    
+    <h3>{{ getTitulo() }}</h3>
+
+    <div class="form-group">
+      <label for="tipo_propiedad">Tipo de Propiedad</label>
+      <input type="text" id="tipo_propiedad" placeholder="Ej. Departamento, Casa" formControlName="tipo_propiedad" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['tipo_propiedad'].invalid && form.controls['tipo_propiedad'].touched">
+      <span *ngIf="form.controls['tipo_propiedad'].hasError('required')">El tipo es requerido.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <input type="text" id="direccion" placeholder="Av. Siempre Viva 123" formControlName="direccion" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['direccion'].invalid && form.controls['direccion'].touched">
+      <span *ngIf="form.controls['direccion'].hasError('required')">La dirección es requerida.</span>
+    </div>
+    <div class="form-group">
+      <label for="precio_propiedad">Precio de la Propiedad (S/.)</label>
+      <input type="number" step="0.01" id="precio_propiedad" placeholder="Ej. 150000" formControlName="precio_propiedad" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['precio_propiedad'].invalid && form.controls['precio_propiedad'].touched">
+      <span *ngIf="form.controls['precio_propiedad'].hasError('required')">El precio es requerido.</span>
+      <span *ngIf="form.controls['precio_propiedad'].hasError('min')">El precio mínimo es S/. 58,000.</span>
+      <span *ngIf="form.controls['precio_propiedad'].hasError('max')">El precio máximo es S/. 419,600.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="url_imagen">URL de la Imagen (Opcional)</label>
+      <input type="text" id="url_imagen" placeholder="https://ejemplo.com/foto.jpg" formControlName="url_imagen" />
+    </div>
+
+    <div class="button-container">
+      <button type="submit" class="btn-submit" [disabled]="form.invalid">{{ getBotonPrincipal() }}</button>
+      <button type="button" class="btn-secondary" (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+</div>

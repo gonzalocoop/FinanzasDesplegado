@@ -1,0 +1,50 @@
+<div class="list-container">
+  
+  <div class="list-header">
+    <h1>{{ titulo }}</h1>
+    <button *ngIf="!isUserFlow" mat-flat-button color="primary" routerLink="/admin/propiedades/nueva">
+      <mat-icon>add</mat-icon>
+      Registrar Nueva Propiedad
+    </button>
+  </div>
+
+  <div class="property-grid" *ngIf="listaPropiedades.length > 0; else noPropiedades">
+    
+    <div class="property-card" *ngFor="let p of listaPropiedades">
+      
+      <img [src]="p.url_imagen || 'assets/default-property.png'" alt="Propiedad" class="property-card-image">
+      
+      <div class="property-card-content">
+        <span class="property-card-tipo">{{ p.tipo_propiedad }}</span>
+        <h3 class="property-card-direccion">{{ p.direccion }}</h3>
+        <div class="property-card-precio">
+           {{ p.precio_propiedad | number:'1.2-2' }}
+        </div>
+      </div>
+      
+      <div class="property-card-actions">
+        
+        <div *ngIf="!isUserFlow" class="admin-actions">
+          <button mat-icon-button color="primary" [routerLink]="['/admin/propiedades/editar/', p.id_propiedad]" title="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminar(p.id_propiedad)" title="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        
+        <button *ngIf="isUserFlow" mat-flat-button color="primary" class="select-button" [routerLink]="['/ingresar-costos/', p.id_propiedad]">
+          Seleccionar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #noPropiedades>
+    <div class="no-properties-message">
+      No hay propiedades registradas.
+    </div>
+  </ng-template>
+
+</div>

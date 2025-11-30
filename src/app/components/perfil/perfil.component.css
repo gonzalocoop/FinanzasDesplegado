@@ -1,0 +1,189 @@
+/* --- Fondo animado --- */
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+/* ... (Tus keyframes globales en styles.css funcionan, no necesitas repetirlos aquí) ... */
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+  /* Tu fondo animado */
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
+  animation: bg-scrolling-reverse 0.92s infinite linear;
+}
+
+/* --- TARJETA MODERNA (BLANCO/ROJO) --- */
+.form-box {
+  background-color: #FFFFFF; /* Fondo Blanco Limpio */
+  border-radius: 16px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 900px; /* Ancho generoso */
+  
+  /* Sombra suave */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  
+  /* Borde superior ROJO (Identidad Corporativa) */
+  border-top: 6px solid #E53935; 
+  
+  /* Grid Layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columnas */
+  column-gap: 2rem;
+  row-gap: 2rem; /* Mucho espacio vertical para que quepan los errores */
+  align-items: start;
+}
+
+/* Título */
+.form-box h3 {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.5px;
+}
+
+/* --- CAMPOS LARGOS (Todo el ancho) --- */
+/* Ajusta estos índices según el orden exacto en tu HTML */
+.form-group:nth-of-type(1), /* Usuario */
+.form-group:nth-of-type(2), /* Nombre */
+.form-group:nth-of-type(7), /* Correo */
+.form-group:nth-of-type(8)  /* Contraseña */
+{
+  grid-column: 1 / -1;
+}
+
+/* --- ESTILOS DE INPUTS --- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  position: relative; /* ¡CLAVE PARA EL ERROR ABSOLUTO! */
+  margin-bottom: 0.5rem; /* Espacio extra */
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input, 
+.form-group select {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #F0F0F0;
+  border-radius: 8px;
+  background-color: #FAFAFA; /* Gris muy suave */
+  font-size: 1rem;
+  color: #333;
+  box-sizing: border-box;
+  height: 50px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  background-color: #FFFFFF;
+  border-color: #E53935; /* Rojo al enfocar */
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.1);
+}
+
+/* Input deshabilitado (Usuario) */
+.form-group input[disabled] {
+  background-color: #EEEEEE;
+  color: #888;
+  cursor: not-allowed;
+  border-color: transparent;
+}
+
+/* --- SOLUCIÓN DEL BUG VISUAL (ERROR FLOTANTE) --- */
+.form-error {
+  color: #D32F2F;
+  font-size: 0.75rem;
+  font-weight: 600;
+  
+  /* Posicionamiento Absoluto: "Flota" sobre el formulario sin empujar nada */
+  position: absolute;
+  bottom: -20px; /* Se ubica justo debajo del input */
+  left: 0;
+  
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+}
+
+.form-error::before {
+  content: "⚠"; 
+  font-size: 0.9rem;
+}
+
+/* --- BOTONES --- */
+.button-container {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end; /* Alineados a la derecha */
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-submit, .btn-secondary {
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #E53935 0%, #C62828 100%);
+  color: #FFFFFF;
+  box-shadow: 0 10px 20px rgba(229, 57, 53, 0.2);
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(229, 57, 53, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #EEEEEE;
+  color: #757575;
+}
+
+.btn-secondary:hover {
+  background-color: #F5F5F5;
+  color: #333;
+  border-color: #E0E0E0;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+  .form-box {
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+    padding: 2rem;
+    row-gap: 1.5rem;
+  }
+  
+  .button-container {
+    flex-direction: column;
+  }
+  
+  .btn-submit, .btn-secondary {
+    width: 100%;
+  }
+}

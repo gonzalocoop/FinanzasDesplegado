@@ -1,0 +1,122 @@
+<div class="dashboard-container" *ngIf="!cargando">
+
+  <!-- ESTADO VACÍO (Si no llegaron datos) -->
+  <div class="empty-state" *ngIf="!tieneDatos">
+    <h2>No tienes financiamientos activos</h2>
+    <p>Solicita una evaluación para ver aquí el detalle de tu futuro hogar.</p>
+  </div>
+
+  <!-- DASHBOARD PRINCIPAL -->
+  <div class="dashboard-content" *ngIf="tieneDatos">
+    
+    <!-- 1. ENCABEZADO DE PROPIEDAD -->
+    <header class="property-header">
+      <div class="icon-house">🏡</div>
+      <div class="header-info">
+        <h1>Mi Vivienda</h1>
+        <p class="address">{{ datos.direccion }}</p>
+        <span class="price-badge">
+          Valor Propiedad: {{ datos.precioPropiedad | number:'1.2-2' }} {{ datos.simboloMoneda }}
+        </span>
+      </div>
+
+      <!-- BADGE DE ESTADO -->
+      <div class="status-badge" 
+           [ngClass]="datos.estadoCredito === 'Rentable' ? 'status-good' : 'status-bad'">
+        <small>Evaluación Financiera</small>
+        <strong>{{ datos.estadoCredito }}</strong>
+      </div>
+    </header>
+
+    <div class="cards-grid">
+      
+      <!-- 2. TARJETA DE CUOTA (LO MÁS IMPORTANTE) -->
+      <div class="card payment-card">
+        <h3>Tu Cuota Mensual</h3>
+        <div class="big-number">
+          <!-- Usamos 'primeracuota' directo del DTO -->
+          {{ datos.primeracuota | number:'1.2-2' }} 
+          <span class="currency">{{ datos.simboloMoneda }}</span>
+        </div>
+        
+        <div class="payment-details">
+          <div class="row">
+            <span>Tasa Anual (TEA):</span>
+            <!-- Dividimos entre 100 para mostrar porcentaje correcto -->
+            <strong>{{ (datos.tasaInteres / 100) | percent:'1.2-2' }}</strong>
+          </div>
+          <div class="row">
+            <span>Costo Real (TCEA):</span>
+            <strong>{{ (datos.tcea / 100) | percent:'1.2-2' }}</strong>
+          </div>
+          <div class="divider"></div>
+          <div class="row">
+            <span>Plazo Total:</span>
+            <span>{{ datos.numeroCuotas }} meses</span>
+          </div>
+          <div class="row">
+            <span>Inicio del Crédito:</span>
+            <span>{{ datos.fechaInicio | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. GRÁFICO 1: ESTRUCTURA (DONA) -->
+      <div class="card chart-card">
+        <h3>Estructura de Inversión</h3>
+        <div class="chart-container">
+          <canvas baseChart
+            [data]="doughnutData"
+            type="doughnut"
+            [options]="doughnutOptions">
+          </canvas>
+        </div>
+        <p class="chart-legend">
+          Comparativa: Tu Aporte vs. Préstamo vs. Costo Financiero Total
+        </p>
+      </div>
+
+      <!-- 4. GRÁFICO 2: PROYECCIÓN (LÍNEA) - NUEVO -->
+      <div class="card chart-card">
+        <h3>Proyección de Deuda</h3>
+        <div class="chart-container">
+          <canvas baseChart
+            [data]="lineData"
+            type="line"
+            [options]="lineOptions">
+          </canvas>
+        </div>
+        <p class="chart-legend">
+          Estimación de cómo disminuirá tu saldo deudor mes a mes.
+        </p>
+      </div>
+
+      <!-- 5. TARJETA DE INDICADORES (KPIs) -->
+      <div class="card stats-card">
+        <h3>Rentabilidad del Proyecto</h3>
+        <p class="desc">Indicadores calculados al momento del desembolso.</p>
+        
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <span>TIR (Retorno)</span>
+            <strong class="text-blue">{{ (datos.tir / 100) | percent:'1.2-2' }}</strong>
+          </div>
+          <div class="kpi-box">
+            <span>COK (Costo Oportunidad)</span>
+            <strong class="text-gray">{{ (datos.cok / 100) | percent:'1.2-2' }}</strong>
+          </div>
+        </div>
+
+        <div class="van-box">
+          <span>VAN (Valor Actual Neto)</span>
+          <h3>{{ datos.van | number:'1.2-2' }} {{ datos.simboloMoneda }}</h3>
+        </div>
+        
+        <div class="alert-box" *ngIf="datos.estadoCredito === 'Rentable'">
+          ✅ <strong>Buena Inversión:</strong> La plusvalía estimada supera el costo financiero.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

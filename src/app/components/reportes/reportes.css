@@ -1,0 +1,134 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #F4F6F8; /* Mismo fondo gris moderno del Home */
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* --- TOOLBAR / BARRA SUPERIOR --- */
+.toolbar-container {
+  /* Sombra suave para separar el header del contenido */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+  position: relative;
+  z-index: 10;
+}
+
+.custom-toolbar {
+  /* Usamos tu color primario (Rojo) para dar identidad a la sección de reportes */
+  background: linear-gradient(135deg, #E53935 0%, #C62828 100%);
+  color: white;
+  height: 70px; /* Un poco más alto para mayor presencia */
+  padding: 0 2rem;
+}
+
+.custom-toolbar button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+  border-radius: 30px; /* Botón redondeado */
+  padding: 0 24px;
+  transition: all 0.3s ease;
+}
+
+.custom-toolbar button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* --- MENSAJE DE BIENVENIDA (Estilo Card) --- */
+.welcome-message {
+  max-width: 900px;
+  margin: 4rem auto; /* Centrado con espacio arriba */
+  
+  /* Estilos copiados y adaptados de tu .action-card */
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 3rem;
+  
+  /* Tipografía */
+  color: #666;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+  font-weight: 500;
+  
+  /* Sombra idéntica a tus cards para consistencia */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  
+  /* Decoración extra: Un borde izquierdo con tu color primario */
+  border-left: 6px solid #E53935;
+  
+  /* Animación de entrada suave */
+  animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- PERSONALIZACIÓN DEL MENÚ DE MATERIAL --- */
+/* Nota: ::ng-deep se usa para afectar al menú flotante de Angular Material */
+::ng-deep .mat-menu-panel {
+  background-color: #FFFFFF !important; 
+  opacity: 1 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2) !important;
+  padding: 0 !important;
+  width: 450px !important; 
+  max-width: 90vw !important;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Estilo de los items del menú */
+button[mat-menu-item] {
+  font-family: 'Montserrat', sans-serif !important;
+  color:#333 !important;
+  font-size: 0.9rem !important;
+  white-space: normal !important; /* Permite que el texto baje de línea */
+  height: auto !important;        /* La altura se adapta al contenido */
+  line-height: 1.4 !important;
+  padding: 16px 20px !important;    /* Espacio entre líneas de texto */          /* Aire abajo */
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0; /* Separador sutil entre opciones */
+  transition: background-color 0.2s, color 0.2s;
+  background: #FFFFFF;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+button[mat-menu-item]:last-child {
+  border-bottom: none;
+}
+
+button[mat-menu-item]:hover {
+  /* Un fondo rojo muy muy suave al pasar el mouse */
+  background-color: #FFEBEE !important; 
+  color: #E53935 !important; /* Texto rojo al hacer hover */
+  font-weight: 600;
+}
+
+/* --- ANIMACIÓN --- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- CONTENEDOR PARA EL ROUTER OUTLET (Opcional) --- */
+/* Si los componentes cargados no tienen margins propios */
+router-outlet + * {
+  display: block;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}

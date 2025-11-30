@@ -1,0 +1,185 @@
+/* --- INICIO: Nuevo fondo animado (Igual que antes) --- */
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+/* ... (Mantén aquí todo el bloque de keyframes del fondo animado que ya tenías) ... */
+/* ... Si quieres ahorrar espacio en esta respuesta, asume que los keyframes van aquí ... */
+@-webkit-keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@-moz-keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@-o-keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@-webkit-keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+@-moz-keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+@-o-keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+@keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+/* --- FIN: Nuevo fondo animado --- */
+
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alineamos arriba para que si crece mucho se pueda scrollear */
+  padding-top: 3rem;       /* Un poco de espacio arriba */
+  padding-bottom: 3rem;    /* Espacio abajo para scroll */
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  /* Fondo animado */
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
+  -webkit-animation: bg-scrolling-reverse .92s infinite;
+  animation: bg-scrolling-reverse .92s infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+
+/* La caja amarilla del formulario */
+.form-box {
+  background-color: #FDD835;
+  border-radius: 20px;
+  padding: 2.5rem 3rem; /* Más padding lateral */
+  width: 90%;           /* Responsive */
+  max-width: 700px;     /* ¡MÁS ANCHO! Antes era 450px */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  
+  /* --- NUEVO: GRID PARA DOS COLUMNAS --- */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  column-gap: 2rem; /* Espacio entre columnas */
+  row-gap: 0.5rem;  /* Espacio entre filas */
+}
+
+/* Título: Ocupa todo el ancho */
+.form-box h3 {
+  grid-column: 1 / -1; /* Span completo */
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #212121;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+/* Los campos que quieres que ocupen TODO el ancho */
+/* (Nombre, Correo, Usuario, Password) */
+.form-group:nth-of-type(1), /* Nombre */
+.form-group:nth-of-type(6), /* Correo */
+.form-group:nth-of-type(7), /* Usuario */
+.form-group:nth-of-type(8)  /* Password */
+{
+  grid-column: 1 / -1;
+}
+
+/* Resto de campos: Se acomodan automáticamente en 2 columnas */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #424242;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1); /* Pequeño resplandor al enfocar */
+}
+
+/* Estilos select (flecha) */
+.form-group select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23424242%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20128c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.6-3.6%205.4-7.8%205.4-12.8%200-5-1.8-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 0.65em auto;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* Errores */
+.form-error {
+  /* Aseguramos que el error ocupe el mismo ancho que su input padre */
+  /* No es necesario grid-column aquí porque va justo debajo del input en el HTML */
+  color: #D32F2F;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+/* Botones: Ocupan todo el ancho al final */
+.button-container {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #424242;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #212121;
+}
+
+.btn-submit:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff9c4; /* Un amarillo más claro para el botón secundario */
+  color: #424242;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #fff59d;
+}
+
+/* --- RESPONSIVE (Móvil) --- */
+@media (max-width: 600px) {
+  .form-box {
+    grid-template-columns: 1fr; /* Vuelve a 1 columna en pantallas pequeñas */
+    padding: 1.5rem;
+  }
+  
+  /* Forzamos a todos los grupos a ocupar todo el ancho en móvil */
+  .form-group {
+    grid-column: 1 / -1 !important;
+  }
+}

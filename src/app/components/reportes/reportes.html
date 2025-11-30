@@ -1,0 +1,40 @@
+<div class="toolbar-container" *ngIf="isLogged">
+    <mat-toolbar class="custom-toolbar">
+      <div>
+        <button mat-button [matMenuTriggerFor]="menuG4" style="color: white;">Reportes</button> 
+      </div>
+    </mat-toolbar>
+
+  </div>
+  
+
+  <mat-menu #menuG4="matMenu" >
+  
+  <ng-container *ngIf="isAdmin()">
+      <button mat-menu-item routerLink="/reportes/analisisrentabilidad">
+          <mat-icon>trending_up</mat-icon> Rentabilidad del Préstamo (TIR/VAN)
+      </button>
+      <button mat-menu-item routerLink="/reportes/creditoPorusuarioconPeriodogracia">
+          <mat-icon>schedule</mat-icon> Créditos con Período de Gracia
+      </button>
+      <button mat-menu-item routerLink="/reportes/preciocorrespondienteporpropiedadxusuario">
+          <mat-icon>request_quote</mat-icon> Detalle Financiero de Compra
+      </button>
+      <button mat-menu-item routerLink="/reportes/propiedadxuser">
+          <mat-icon>apartment</mat-icon> Detalles del Inmueble
+      </button>
+  </ng-container>
+
+  <ng-container *ngIf="isStudent()" && idUsuarioActual>
+      <button mat-menu-item [routerLink]="['/reportes/resumenfinancierousuario', idUsuarioActual]">
+          <mat-icon>home</mat-icon> Mi Resumen Financiero
+      </button>
+  </ng-container>
+
+</mat-menu>
+  <div *ngIf="showWelcomeMessage" class="welcome-message">
+    Bienvenido al apartado de reportes de nuestra plataforma. Aquí podrás acceder a todos los informes importantes y funcionalidades extra!!
+</div>
+
+  <router-outlet></router-outlet>
+  

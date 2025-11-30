@@ -1,0 +1,117 @@
+/* --- Fondo animado (Igual que en las otras pantallas) --- */
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+/* ... (puedes copiar los keyframes si quieres, o dejar que se hereden si están globales) ... */
+@-webkit-keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@-moz-keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@-o-keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@keyframes bg-scrolling-reverse { 100% { background-position: 50px 50px; } }
+@-webkit-keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+@-moz-keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+@-o-keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+@keyframes bg-scrolling { 0% { background-position: 50px 50px; } }
+
+/* Estilos para la lista (similar a la lista de creditos) */
+:host {
+  display: block;
+  padding: 3rem;
+  background-color: var(--color-fondo-alternativo, #f4f4f4);
+  min-height: 100vh;
+}
+
+.list-container {
+  max-width: 1200px; /* Más ancho para el cronograma */
+  margin: 0 auto; /* <-- ESTO CENTRA EL CONTENIDO */
+  padding: 2.5rem 3rem; /* Más padding */
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Sombra más suave */
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.list-header h1 {
+  margin: 0;
+  font-size: 2rem; /* Título más grande */
+  font-weight: 700;
+  color: var(--color-texto-principal, #212121);
+}
+
+
+
+.cronograma-table {
+  width: 100%;
+  box-shadow: none; 
+  border: 1px solid #e0e0e0; /* Borde sutil */
+  border-radius: 8px; /* Esquinas redondeadas */
+  overflow: hidden; /* Para que el radio se aplique a la cabecera */
+}
+
+/* --- Cabecera de la Tabla (CORREGIDO) --- */
+/* Esto arreglará las cabeceras invisibles */
+.mat-header-cell {
+  background-color: var(--color-primario-oscuro, #D32F2F); /* Fondo rojo oscuro */
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* --- Celdas de la Tabla (CORREGIDO) --- */
+.mat-cell {
+  border-bottom-width: 1px;
+  border-bottom-color: #f0f0f0;
+  color: var(--color-texto-secundario, #424242);
+  font-size: 0.95rem;
+  padding-top: 12px;    /* Espaciado extra */
+  padding-bottom: 12px; /* Espaciado extra */
+}
+
+/* --- Filas de la Tabla (CORREGIDO) --- */
+.mat-row:nth-child(even) {
+  background-color: #f9f9f9; /* "Zebra striping" para mejor lectura */
+}
+
+.mat-row:hover {
+  background-color: #f0f0f0; /* Efecto hover */
+}
+
+.mat-row:last-child .mat-cell {
+  border-bottom: none; /* Quita el borde de la última fila */
+}
+
+/* --- Estilos de Columnas Específicas --- */
+
+/* N° Cuota */
+.mat-column-numero_cuota {
+  width: 80px;
+  font-weight: 700;
+  color: var(--color-texto-principal);
+}
+
+/* Fecha */
+.mat-column-fecha_cuota {
+  width: 120px;
+}
+
+.col-numero {
+  text-align: right;
+  font-family: 'Roboto Mono', monospace; /* Fuente monoespaciada */
+  font-size: 0.9rem;
+}
+
+/* Alinear cabeceras de números a la derecha (CORREGIDO) */
+.mat-header-cell.mat-column-saldo_restante,
+.mat-header-cell.mat-column-amortizacion_cuota,
+.mat-header-cell.mat-column-interes_cuota,
+.mat-header-cell.mat-column-seguro_desgravamen,
+.mat-header-cell.mat-column-seguro_bien,
+.mat-header-cell.mat-column-cuota_fija {
+  text-align: right;
+  justify-content: flex-end;
+}

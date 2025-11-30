@@ -1,0 +1,81 @@
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="list-container" *ngIf="!isLoading">
+  
+  <div class="list-header">
+    <h1>{{ isAdmin ? 'Gestión de Créditos (Admin)' : 'Mis Créditos Mivivienda' }}</h1>
+    <button mat-flat-button color="accent" (click)="volverAlMenu()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver
+    </button>
+  </div>
+
+  <div class="credit-grid" *ngIf="listaCreditos.length > 0; else noCreditos">
+    
+    <div class="credit-card" *ngFor="let c of listaCreditos">
+      
+      <div class="credit-card-content">
+        <div class="card-header">
+          <span class="card-id">Crédito ID: #{{c.id_credito}}</span>
+          <span class="card-propiedad">{{c.propiedad?.direccion || 'N/A'}}</span>
+        </div>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Tasa (TEA)</span>
+            <span class="info-value">{{ (c.tea * 100) | number:'1.4-4' }}%</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">TCEA</span>
+            <span class="info-value">{{ (c.tcea * 100) | number:'1.4-4' }}%</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Moneda</span>
+            <span class="info-value">{{c.preciocorrespondiente?.moneda?.nombre_moneda || 'N/A'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Cuota Inicial</span>
+            <span class="info-value">{{c.cuota_inicial | number:'1.2-2'}}</span>
+          </div>
+          <div class="info-item info-importante">
+            <span class="info-label">VAN</span>
+            <span class="info-value">{{c.van | number:'1.2-2'}}</span>
+          </div>
+          <div class="info-item info-importante">
+            <span class="info-label">TIR (TCEA)</span>
+            <span class="info-value">{{ (c.tir * 100) | number:'1.4-4' }}%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="credit-card-actions">
+        <button mat-icon-button color="accent" (click)="verCronograma(c.id_credito)" title="Ver Cronograma">
+          <mat-icon>assessment</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" [routerLink]="['/credito', c.id_credito, 'detalle']" title="Ver Detalles">
+          <mat-icon>search</mat-icon>
+        </button>
+      <!--
+        <div *ngIf="isAdmin" class="admin-actions">
+          <button mat-icon-button [routerLink]="['/admin/creditos/editar/', c.id_credito]" title="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminar(c.id_credito)" title="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        -->
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #noCreditos>
+    <div class="no-credits-message">
+      No tienes créditos registrados.
+    </div>
+  </ng-template>
+
+</div>

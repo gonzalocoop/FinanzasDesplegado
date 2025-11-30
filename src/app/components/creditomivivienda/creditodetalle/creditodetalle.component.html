@@ -1,0 +1,126 @@
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="detalle-container" *ngIf="!isLoading && credito">
+  
+  <div class="detalle-header">
+    <h1>Detalles del Crédito <span class="highlight">#{{ credito.id_credito }}</span></h1>
+    <button mat-flat-button color="accent" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> Volver
+    </button>
+  </div>
+
+  <div class="detalle-card">
+    
+    <div class="detalle-section highlight-section">
+      <h2><mat-icon>paid</mat-icon> Resumen Financiero</h2>
+      <div class="info-grid">
+        <div class="info-item big-item">
+          <span class="info-label">Precio del Inmueble</span>
+          <span class="info-value">{{ credito.propiedad?.precio_propiedad | number:'1.2-2' }} {{ credito.preciocorrespondiente?.moneda?.nombre_moneda }}</span>
+        </div>
+        <div class="info-item big-item">
+          <span class="info-label">Bono Buen Pagador (BBP)</span>
+          <span class="info-value highlight-green">- {{ credito.preciocorrespondiente?.bono?.monto_bono | number:'1.2-2' }}</span>
+        </div>
+        <div class="info-item big-item">
+          <span class="info-label">Cuota Inicial</span>
+          <span class="info-value">- {{ credito.cuota_inicial | number:'1.2-2' }}</span>
+        </div>
+        <div class="info-item big-item total-item">
+          <span class="info-label">Monto del Préstamo (Sin tener en cuenta Bono)</span>
+          <span class="info-value">{{ credito.saldo_inicial | number:'1.2-2' }}</span>
+        </div>
+        <div class="info-item big-item total-item">
+          <span class="info-label">Costos extras (notariales, transacción y registro)</span>
+          <span class="info-value">{{ credito.preciocorrespondiente.costos_notariales + credito.preciocorrespondiente.costos_transaccion +  credito.preciocorrespondiente.registros_publicos| number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="detalle-section">
+      <h2><mat-icon>percent</mat-icon> Tasas y Condiciones</h2>
+      <div class="info-grid three-cols">
+        <div class="info-item">
+          <span class="info-label">Tasa de Interés (TEA)</span>
+          <span class="info-value">{{ (credito.tea * 100) | number:'1.2-2' }}%</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">TCEA</span>
+          <span class="info-value">{{ (credito.tcea * 100) | number:'1.2-2' }}%</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">TEM</span>
+          <span class="info-value">{{ (credito.tem_requerido * 100) | number:'1.4-4' }}%</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Plazo (# Cuotas sin tener en cuenta gracia)</span>
+          <span class="info-value">{{ credito.numero_cuotas }} meses</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Fecha de Inicio</span>
+          <span class="info-value">{{ credito.fecha_inicio | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Tipo de Gracia</span>
+          <span class="info-value">{{ credito.tipo_gracia }} ({{ credito.duracion_gracia_meses }} meses)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="detalle-section">
+      <h2><mat-icon>query_stats</mat-icon> Indicadores de Rentabilidad</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">COK (Tasa de Descuento)</span>
+          <span class="info-value">{{ (credito.cok) | number:'1.2-2' }}%</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">VAN (Valor Actual Neto)</span>
+          <span class="info-value" [class.positive]="credito.van > 0" [class.negative]="credito.van < 0">
+            {{ credito.van | number:'1.2-2' }}
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">TIR (Tasa Interna de Retorno)</span>
+          <span class="info-value" [class.positive]="credito.tir > credito.cok" [class.negative]="credito.tir < credito.cok">
+            {{ (credito.tir * 100) | number:'1.4-4' }}%
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="detalle-section">
+      <h2><mat-icon>home</mat-icon> Datos de la Propiedad</h2>
+      <div class="propiedad-content">
+        <img [src]="credito.propiedad?.url_imagen || 'assets/default-property.png'" alt="Propiedad" class="propiedad-img">
+        <div class="info-grid two-cols">
+          <div class="info-item">
+            <span class="info-label">Dirección</span>
+            <span class="info-value">{{ credito.propiedad?.direccion }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Tipo de Inmueble</span>
+            <span class="info-value">{{ credito.propiedad?.tipo_propiedad }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Costos Notariales</span>
+            <span class="info-value">S/ {{ credito.preciocorrespondiente?.costos_notariales | number:'1.2-2' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Registros Públicos</span>
+            <span class="info-value">S/ {{ credito.preciocorrespondiente?.registros_publicos | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

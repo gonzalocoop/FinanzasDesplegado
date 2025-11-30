@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Contenedor Principal (Tarjeta) */
+.container {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #FFFFFF;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave estilo Home */
+}
+
+/* Título */
+h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  border-left: 5px solid #E53935; /* Tu borde rojo característico */
+}
+
+/* --- FORMULARIO --- */
+.form-group {
+  margin-bottom: 1.5rem;
+  max-width: 400px; /* Limitamos el ancho para que no se estire demasiado */
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Input (Caja de texto) */
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #FAFAFA;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #E53935; /* Borde rojo al escribir */
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(229, 57, 53, 0.1); /* Resplandor rojo suave */
+}
+
+/* Botón Buscar */
+.btn-primary {
+  background-color: #E53935;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px; /* Redondeado moderno */
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #C62828; /* Rojo más oscuro */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(229, 57, 53, 0.4);
+}
+
+/* --- TABLA DE REPORTE --- */
+/* Contenedor de la tabla para scroll horizontal si es necesario */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 2rem;
+  border-radius: 12px;
+  border: 1px solid #F0F0F0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; /* Asegura que la tabla no se aplaste en pantallas chicas */
+}
+
+/* Cabecera de la tabla */
+.table thead th {
+  background-color: #F9FAFB;
+  color: #424242;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  padding: 16px;
+  text-align: left;
+  border-bottom: 2px solid #EEE;
+}
+
+/* Celdas del cuerpo */
+.table tbody td {
+  padding: 16px;
+  color: #616161;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #F5F5F5;
+  vertical-align: middle;
+}
+
+/* Efecto Zebra (Filas alternadas) opcional, aquí uso hover */
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #FFEBEE; /* Fondo rojo muy pálido al pasar el mouse */
+}
+
+/* Resaltar valores numéricos importantes (opcional) */
+.table tbody td:nth-child(3), /* TIR */
+.table tbody td:nth-child(4), /* COK */
+.table tbody td:nth-child(5) { /* Margen */
+  font-weight: 600;
+  color: #333;
+}
+
+/* Mensaje de "No resultados" */
+p {
+  color: #757575;
+  margin-top: 2rem;
+  font-style: italic;
+  text-align: center;
+}

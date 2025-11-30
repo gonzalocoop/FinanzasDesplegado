@@ -1,0 +1,61 @@
+<div class="list-container">
+  <div class="list-header">
+    <h1>Cronograma de Pagos </h1>
+    <button mat-flat-button color="accent" routerLink="/creditoMiVivienda">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a Mis Créditos
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="cronograma" class="cronograma-table mat-elevation-z8">
+    
+    <ng-container matColumnDef="numero_cuota">
+      <th mat-header-cell *matHeaderCellDef> N° Cuota </th>
+      <td mat-cell *matCellDef="let item"> {{item.numero_cuota}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha_cuota">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let item"> {{item.fecha_cuota | date:'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="saldo_restante">
+      <th mat-header-cell *matHeaderCellDef> Saldo Restante </th>
+      <td mat-cell *matCellDef="let item" class="col-numero"> {{item.saldo_restante | number:'1.2-2'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amortizacion_cuota">
+      <th mat-header-cell *matHeaderCellDef> Amortización </th>
+      <td mat-cell *matCellDef="let item" class="col-numero"> {{item.amortizacion_cuota | number:'1.2-2'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="interes_cuota">
+      <th mat-header-cell *matHeaderCellDef> Interés </th>
+      <td mat-cell *matCellDef="let item" class="col-numero"> {{item.interes_cuota | number:'1.2-2'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="seguro_desgravamen">
+      <th mat-header-cell *matHeaderCellDef> Seg. Desgravamen </th>
+      <td mat-cell *matCellDef="let item" class="col-numero"> {{item.seguro_desgravamen | number:'1.2-2'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="seguro_bien">
+      <th mat-header-cell *matHeaderCellDef> Seg. Bien </th>
+      <td mat-cell *matCellDef="let item" class="col-numero"> {{item.seguro_bien | number:'1.2-2'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cuota_fija">
+      <th mat-header-cell *matHeaderCellDef> Cuota Fija </th>
+      <td mat-cell *matCellDef="let item" class="col-numero"> {{item.cuota_fija | number:'1.2-2'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        No se encontraron datos del cronograma.
+      </td>
+    </tr>
+  </table>
+</div>

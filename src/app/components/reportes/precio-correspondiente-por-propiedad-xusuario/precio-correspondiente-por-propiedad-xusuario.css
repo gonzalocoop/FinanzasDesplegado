@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* --- CONFIGURACIÓN DE PÁGINA Y CONTENEDOR PRINCIPAL --- */
+
+.container {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #FFFFFF;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave estilo Home */
+}
+
+/* --- TÍTULO --- */
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 5px solid #E53935; /* Tu borde rojo característico */
+}
+
+/* --- FORMULARIO Y BUSCADOR (Angular Material) --- */
+.form-group {
+  margin-bottom: 1.5rem;
+  max-width: 400px; /* Limitamos el ancho para que no se estire demasiado */
+}
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #FAFAFA;
+}
+
+.custom-field-full {
+    width: 100%;
+}
+
+/* Ajuste del icono de suffix para que se vea bien */
+mat-icon.mat-icon {
+    color: #666;
+    transition: color 0.3s;
+}
+
+/* --- BOTÓN DE GENERAR GRÁFICO --- */
+.btn-primary {
+    /* Estilos replicados del botón 'Buscar' de tus otros reportes */
+    background-color: #E53935;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px; /* Redondeado moderno */
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+    /* Ajuste para que se vea uniforme */
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: #C62828; /* Rojo más oscuro */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(229, 57, 53, 0.4);
+}
+
+/* --- CONTENEDOR DEL GRÁFICO --- */
+.chart-report-container {
+    padding: 2rem;
+    border: 1px solid #F0F0F0;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    background-color: #FFFFFF;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #EEE;
+}
+
+.chart-header h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+/* Etiqueta de Moneda */
+.currency-badge {
+    background-color: #FFEBEE; /* Rojo muy pálido */
+    color: #D32F2F;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+/* --- CONTENEDOR DEL CANVAS --- */
+.canvas-container {
+    position: relative;
+    height: 400px; /* Altura controlada para el gráfico de dona */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- MENSAJES DE ESTADO --- */
+.message-initial, .message-no-data {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+p {
+  color: #757575;
+  margin-top: 2rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .canvas-container {
+        height: 300px;
+    }
+}
+
+/* --- ANIMACIÓN --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

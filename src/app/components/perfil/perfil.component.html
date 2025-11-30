@@ -1,0 +1,54 @@
+<div class="page-container">
+  <form class="form-box" [formGroup]="form" (submit)="aceptar()">
+    
+    <h3>Mi Perfil</h3>
+
+    <div class="form-group">
+      <label>Usuario (No editable)</label>
+      <input type="text" formControlName="username" style="background-color: #e0e0e0; cursor: not-allowed;" />
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre Completo</label>
+      <input type="text" id="nombre" formControlName="nombre_cliente" />
+    </div>
+
+    <div class="form-group">
+      <label for="dni">DNI</label>
+      <input type="text" id="dni" formControlName="dni" />
+    </div>
+
+    <div class="form-group">
+      <label for="edad">Edad</label>
+      <input type="number" id="edad" formControlName="edad" />
+    </div>
+
+    <div class="form-group">
+      <label for="estado_civil">Estado Civil</label>
+      <select id="estado_civil" formControlName="estado_civil">
+        <option value="SOLTERO">Soltero(a)</option>
+        <option value="CASADO">Casado(a)</option>
+        <option value="CONVIVIENTE">Conviviente</option>
+        <option value="DIVORCIADO">Divorciado(a)</option>
+        <option value="VIUDO">Viudo(a)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ingreso">Ingreso Mensual (S/.)</label>
+      <input type="number" id="ingreso" formControlName="ingreso_mensual" />
+    </div>
+
+    <div class="form-group">
+      <label for="correo">Correo</label>
+      <input type="email" id="correo" formControlName="correo" />
+    </div>
+
+
+    <div class="button-container">
+      <button type="submit" class="btn-submit" [disabled]="form.invalid">Guardar Cambios</button>
+      <button type="button" class="btn-secondary" (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+</div>

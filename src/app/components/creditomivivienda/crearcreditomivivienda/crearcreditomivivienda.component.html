@@ -1,0 +1,88 @@
+<div class="page-container">
+  <form class="form-box" [formGroup]="form" (submit)="aceptar()">
+    
+    <h3>{{ getTitulo() }}</h3>
+
+    <div class="form-group">
+      <label for="fecha_inicio">Fecha de Inicio</label>
+      <input type="date" id="fecha_inicio" formControlName="fecha_inicio" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['fecha_inicio'].invalid && form.controls['fecha_inicio'].touched">
+      <span *ngIf="form.controls['fecha_inicio'].hasError('required')">Requerido.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="tasa_interes">Tasa de Interés (Ej. 12)</label>
+      <input type="number" id="tasa_interes" placeholder="Ej. 12" formControlName="tasa_interes" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['tasa_interes'].invalid && form.controls['tasa_interes'].touched">
+      <span *ngIf="form.controls['tasa_interes'].hasError('required')">Requerido.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="cok">COK (Tasa para VAN) (Ej. 5)</label>
+      <input type="number" id="cok" placeholder="Ej. 5" formControlName="cok" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['cok'].invalid && form.controls['cok'].touched">
+      <span>El COK es requerido.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="numero_cuotas">Número de Cuotas (sin contar meses de gracia)</label>
+      <input type="number" id="numero_cuotas" placeholder="Ej. 12" formControlName="numero_cuotas" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['numero_cuotas'].hasError('min') || form.controls['numero_cuotas'].hasError('max')">
+  <span>Debe ser entre 60 y 300 cuotas.</span>
+</div>
+
+    <div class="form-group">
+      <label for="tipo_tasa">Tipo de Tasa</label>
+      <select id="tipo_tasa" formControlName="tipo_tasa">
+        <option value="Nominal">Nominal</option>
+        <option value="Efectiva">Efectiva</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="peridiocidad_tasa">Peridiocidad Tasa</label>
+      <select id="peridiocidad_tasa" formControlName="peridiocidad_tasa">
+        <option value="Diaria">Diaria</option>
+        <option value="Mensual">Mensual</option>
+        <option value="Anual">Anual</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="tipo_capitalizacion">Capitalización (si la tasa es Nominal)</label>
+      <select id="tipo_capitalizacion" formControlName="tipo_capitalizacion">
+        <option value="Nulo">Ninguna</option>
+        <option value="Diaria">Diaria</option>
+        <option value="Mensual">Mensual</option>
+        <option value="Anual">Anual</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="tipo_gracia">Periodo de Gracia</label>
+      <select id="tipo_gracia" formControlName="tipo_gracia">
+        <option value="Ninguno">Ninguno</option>
+        <option value="Parcial">Parcial</option>
+        <option value="Total">Total</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="duracion_gracia_meses">Duración Gracia (en meses)</label>
+      <input type="number" id="duracion_gracia_meses" formControlName="duracion_gracia_meses" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['duracion_gracia_meses'].hasError('min')">
+    <span>El periodo de gracia mínimo es de 6 meses.</span>
+    </div>
+    
+    <div class="button-container">
+      <button type="submit" class="btn-submit" [disabled]="form.invalid">Guardar Crédito</button>
+      <button type="button" class="btn-secondary" (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+</div>

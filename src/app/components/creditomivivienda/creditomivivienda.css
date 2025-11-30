@@ -1,0 +1,148 @@
+:host {
+  display: block;
+  padding: 3rem;
+  background-color: var(--color-fondo-alternativo, #f4f4f4);
+  min-height: 100vh;
+}
+
+/* --- Spinner de Carga --- */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 999;
+}
+
+/* --- Contenedor Principal --- */
+.list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.list-header h1 {
+  margin: 0;
+  color: var(--color-texto-principal, #212121);
+}
+
+/* --- Grid de Tarjetas de Crédito --- */
+.credit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+/* --- Tarjeta Individual --- */
+.credit-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.credit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.credit-card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+/* Encabezado de la tarjeta */
+.card-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-id {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-primario, #E53935);
+  text-transform: uppercase;
+}
+
+.card-propiedad {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-texto-principal, #212121);
+  margin-top: 0.25rem;
+}
+
+/* Grid de información (VAN, TIR, etc.) */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 1.25rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-texto-secundario, #424242);
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-texto-principal, #212121);
+}
+
+.info-item.info-importante .info-label {
+  color: #0d47a1; /* Azul oscuro para destacar */
+  font-weight: 700;
+}
+
+.info-item.info-importante .info-value {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #0d47a1;
+}
+
+/* --- Acciones al fondo de la tarjeta --- */
+.credit-card-actions {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-actions {
+  margin-left: auto; /* Empuja los botones de admin a la derecha */
+}
+
+/* --- Mensaje de "No hay créditos" --- */
+.no-credits-message {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: var(--color-texto-secundario, #424242);
+}

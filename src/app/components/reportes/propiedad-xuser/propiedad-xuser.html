@@ -1,0 +1,77 @@
+<div class="container">
+
+    <h1>Detalles de la Propiedad Vinculada</h1>
+
+    <div class="form-group">
+    <label for="idusuario">ID del usuario:</label>
+    
+    <input 
+      type="number" 
+      id="idusuario" 
+      [(ngModel)]="id_usuario" 
+      (input)="limpiarBusqueda()"
+      class="form-control" 
+      placeholder="Ingrese ID del usuario">
+  </div>
+
+    <!-- Botón para buscar -->
+    <button class="btn btn-primary mt-3" (click)="cargarPropiedades()">
+        Buscar Propiedades
+    </button>
+
+
+    <div class="property-results-grid mt-4" *ngIf="propiedades.length > 0">
+        
+        <div class="property-card" *ngFor="let prop of propiedades">
+            
+            <div class="card-header">
+                <!-- Nombre del cliente: USA prop.nombre -->
+                <h3 class="client-name">{{ prop.nombre || 'Cliente Desconocido' }}</h3>
+                <!-- Tipo de Propiedad: USA prop.tipoPropiedadstring -->
+                <span class="property-type">{{ prop.tipoPropiedadstring || 'No especificado' }}</span>
+            </div>
+
+            <!-- Fila de Dirección -->
+            <div class="detail-row location">
+                <mat-icon class="icon-location">location_on</mat-icon>
+                <!-- Dirección: USA prop.direccionstring -->
+                <p>{{ prop.direccionstring || 'Dirección no registrada' }}</p>
+            </div>
+            
+            <!-- Fila de Datos Financieros -->
+            <div class="data-row-container single-row">
+                
+                <!-- Precio de Venta -->
+                <div class="data-item price">
+                    <p class="label">Precio Venta</p>
+                    <!-- Precio: USA prop.precioPropiedad -->
+                    <p class="value">{{ prop.precioPropiedad | currency:'S/':'symbol':'1.2-2' }}</p> 
+                </div>
+                
+                <!-- Tipo de Propiedad (Dato secundario) -->
+                <div class="data-item type">
+                    <p class="label">Tipo de Inmueble</p>
+                    <p class="value">{{ prop.tipoPropiedadstring }}</p>
+                </div>
+                
+            </div>
+
+            <!-- ID de Propiedad (Referencia técnica): USA prop.idPropiedad -->
+            <div class="footer-id">
+                ID Propiedad: #{{ prop.idPropiedad }}
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Mensaje de Estado Vacío (Si se buscó y no se encontró nada) -->
+    <p *ngIf="propiedades.length === 0 && haRealizadoBusqueda">
+        No se encontraron propiedades financiadas para el usuario {{ id_usuario }}.
+    </p>
+
+    <!-- Mensaje Inicial (Si aún no se ha buscado) -->
+    <p *ngIf="!haRealizadoBusqueda" >
+        Ingrese un ID de usuario para visualizar los detalles del inmueble asociado al crédito.
+    </p>
+
+</div>

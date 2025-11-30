@@ -1,0 +1,50 @@
+<div class="page-container">
+  <form class="form-box" [formGroup]="form" (submit)="aceptar()">
+    
+    <h3>Paso 2: Añadir Costos y Moneda</h3>
+    <p style="text-align: center; margin-bottom: 20px; color: #555;">Para la Propiedad ID: {{ idPropiedadRecibida }}</p>
+
+    <div class="form-group">
+      <label for="tipo_moneda">Moneda</label>
+      <select id="tipo_moneda" formControlName="tipo_moneda">
+        <option [ngValue]="null" disabled>Selecciona la moneda</option>
+        <option *ngFor="let m of listaMonedas" [value]="m.id_moneda">
+          {{ m.nombre_moneda }}
+        </option>
+      </select>
+    </div>
+    <div class="form-error" *ngIf="form.controls['tipo_moneda'].invalid && form.controls['tipo_moneda'].touched">
+      <span>La moneda es requerida.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="costos_notariales">Costos Notariales</label>
+      <input type="number" step="0.01" id="costos_notariales" placeholder="Ej. 500" formControlName="costos_notariales" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['costos_notariales'].invalid && form.controls['costos_notariales'].touched">
+      <span>Este costo es requerido.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="registros_publicos">Registros Públicos</label>
+      <input type="number" step="0.01" id="registros_publicos" placeholder="Ej. 150" formControlName="registros_publicos" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['registros_publicos'].invalid && form.controls['registros_publicos'].touched">
+      <span>Este costo es requerido.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="costos_transaccion">Costos de Transacción</label>
+      <input type="number" step="0.01" id="costos_transaccion" placeholder="Ej. 100" formControlName="costos_transaccion" />
+    </div>
+    <div class="form-error" *ngIf="form.controls['costos_transaccion'].invalid && form.controls['costos_transaccion'].touched">
+      <span>Este costo es requerido.</span>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" class="btn-submit" [disabled]="form.invalid">Siguiente (Crear Crédito)</button>
+      <button type="button" class="btn-secondary" (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+</div>
