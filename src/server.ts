@@ -1,8 +1,8 @@
+// server.ts
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
-  writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
@@ -13,36 +13,13 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 // Servir archivos estáticos
-app.use(
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: false,
-    redirect: false,
-  }),
-);
+app.use(express.static(browserDistFolder, { maxAge: '1y', index: false, redirect: false }));
 
-// Manejar todas las rutas con SSR
-app.get('*', (req, res, next) => {
-  angularApp
-    .handle(req)
-    .then((response) => {
-      if (response) {
-        writeResponseToNodeResponse(response, res);
-      } else {
-        next();
-      }
-    })
-    .catch(next);
-});
+// Usar request handler de Angular SSR
+export const reqHandler = createNodeRequestHandler(app); // <--- solo 1 argumento
 
-// Iniciar servidor solo si es el módulo principal
+// Iniciar servidor solo si es main
 if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
-  app.listen(port, (error) => {
-    if (error) throw error;
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
+  app.listen(port, () => console.log(`Node Express server listening on http://localhost:${port}`));
 }
-
-// Exportar handler para Vercel
-export const reqHandler = createNodeRequestHandler(app);
