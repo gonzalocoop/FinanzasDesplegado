@@ -1,15 +1,19 @@
+// src/app/app.config.ts (CORREGIDO)
+
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { JwtModule } from '@auth0/angular-jwt';
-import { isPlatformBrowser } from '@angular/common';
-import { NoopAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
-// Token getter para SSR
+
+// 1. FUNCIÓN tokenGetter CORREGIDA PARA SSR
 export function tokenGetter() {
+  // Solo intenta acceder a sessionStorage si estás en el navegador
   if (typeof window !== 'undefined' && window.sessionStorage) {
     return sessionStorage.getItem('token');
   }
@@ -22,19 +26,17 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()), 
-
-    // Condicional: si estamos en el navegador usamos animaciones, si no (SSR) usamos noop
-    typeof window !== 'undefined' ? provideAnimations() : importProvidersFrom(NoopAnimationsModule),
-
+    provideAnimationsAsync(), 
     provideCharts(withDefaultRegisterables()),
-
     importProvidersFrom(
       JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
+          
+          
           allowedDomains: ['portalfinanza.azurewebsites.net/'],
           disallowedRoutes: [
-            'https://portalfinanza.azurewebsites.net//login', 
+            'https://portalfinanza.azurewebsites.net/login', 
             'https://portalfinanza.azurewebsites.net/registrarusuario',
             'https://portalfinanza.azurewebsites.net/registrarusuario/listarusuarios',
             'https://portalfinanza.azurewebsites.net/registrarusuario/listarroles',
@@ -47,6 +49,6 @@ export const appConfig: ApplicationConfig = {
           ],
         },
       })
-    )
+    ), provideCharts(withDefaultRegisterables())
   ],
 };
